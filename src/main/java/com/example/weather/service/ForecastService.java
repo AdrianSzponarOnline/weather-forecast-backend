@@ -19,7 +19,9 @@ public class ForecastService {
             56, 57,       // marznąca mżawka
             61, 63, 65,   // deszcz
             66, 67,       // marznący deszcz
+            71, 73, 75,   // śnieg
             80, 81, 82,   // zlewa
+            85, 86,       // śnieg
             95, 96, 99    // burze
     );
 
