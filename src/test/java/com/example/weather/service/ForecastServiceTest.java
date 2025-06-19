@@ -113,6 +113,6 @@ class ForecastServiceTest {
                 pressure
         );
 
-        return new OpenMeteoResponse(daily, null);
+        return new OpenMeteoResponse(daily);
     }
 }

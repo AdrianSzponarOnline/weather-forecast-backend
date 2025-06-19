@@ -36,14 +36,14 @@ public class ForecastService {
         List<ForecastDay> days = new ArrayList<>(7);
 
         for (int i = 0; i < 7; i++) {
-            double sunshineHours = api.daily().sunshine_duration().get(i) / 3600.0;
+            double sunshineHours = api.daily().sunshineDuration().get(i) / 3600.0;
             double energyKwh = PANEL_POWER_KW * sunshineHours * PANEL_EFFICENCY;
 
             days.add(new ForecastDay(
                     api.daily().time().get(i),
                     api.daily().weatherCode().get(i),
-                    api.daily().temperature_2m_min().get(i),
-                    api.daily().temperature_2m_max().get(i),
+                    api.daily().temperature2mMin().get(i),
+                    api.daily().temperature2mMax().get(i),
                     energyKwh
             ));
         }
@@ -53,16 +53,16 @@ public class ForecastService {
     public ForecastSummary getSummary(double lat, double lon) {
         OpenMeteoResponse api = client.fetch(lat, lon);
 
-        double avgPressure = api.daily().surface_pressure_mean().stream()
+        double avgPressure = api.daily().surfacePressureMean().stream()
                 .mapToDouble(Double::doubleValue).average().orElse(Double.NaN);
 
-        double avgSunshine = api.daily().sunshine_duration().stream()
+        double avgSunshine = api.daily().sunshineDuration().stream()
                 .mapToInt(Integer::intValue).average().orElse(0) / 3600.0;
 
-        double weekMin = api.daily().temperature_2m_min().stream()
+        double weekMin = api.daily().temperature2mMin().stream()
                 .mapToDouble(Double::doubleValue).min().orElse(Double.NaN);
 
-        double weekMax = api.daily().temperature_2m_max().stream()
+        double weekMax = api.daily().temperature2mMax().stream()
                 .mapToDouble(Double::doubleValue).max().orElse(Double.NaN);
 
         long rainyDays = api.daily().weatherCode().stream()
