@@ -21,7 +21,7 @@ public class WeatherApiClient {
 
     @Cacheable(cacheNames = "weatherCache", key = "#lat + ':' + #lon")
     public OpenMeteoResponse fetch(double lat, double lon) {
-        System.out.printf("⛅ CALL Open-Meteo for %f,%f", lat, lon);
+        System.out.printf("CALL Open-Meteo for %f,%f", lat, lon);
         Map<String, Object> params = Map.of("lat", lat, "lon", lon);
         return restTemplate.getForObject(url, OpenMeteoResponse.class, params);
     }
