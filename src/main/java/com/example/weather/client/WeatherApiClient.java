@@ -31,7 +31,7 @@ public class WeatherApiClient {
 
     @Cacheable(cacheNames = "weatherCache", key = "#lat + ':' + #lon")
     public OpenMeteoResponse fetch(double lat, double lon) {
-        System.out.printf("⛅ CALL Open-Meteo for %f,%f", lat, lon);
+        System.out.printf("CALL Open-Meteo for %f,%f", lat, lon);
         
         String url = String.format("%s?latitude={lat}&longitude={lon}&daily=%s&forecast_days=%d&timezone=%s",
                 baseUrl, dailyParams, forecastDays, timezone);
