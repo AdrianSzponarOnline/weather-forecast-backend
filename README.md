@@ -1,97 +1,97 @@
 # Weather Forecast App
 
-Aplikacja do prognozowania pogody i szacowania energii słonecznej z paneli fotowoltaicznych.
+A weather forecasting application with solar energy estimation from photovoltaic panels.
 
-## Funkcjonalności
+## Features
 
-- **7-dniowa prognoza pogody** z danymi z Open-Meteo API
-- **Szacowanie energii słonecznej** z paneli PV (2.5kW, sprawność 20%)
-- **Podsumowanie tygodnia** z temperaturami, ciśnieniem i nasłonecznieniem
-- **Walidacja współrzędnych geograficznych** (lat: -90 do 90, lon: -180 do 180)
-- **Cache'owanie** odpowiedzi API (Caffeine)
-- **Dokumentacja API** (Swagger/OpenAPI)
-- **Obsługa błędów** z komunikatami
+- **7-day weather forecast** with data from Open-Meteo API
+- **Solar energy estimation** from PV panels (2.5kW, 20% efficiency)
+- **Weekly summary** with temperatures, pressure and sunshine hours
+- **Geographic coordinates validation** (lat: -90 to 90, lon: -180 to 180)
+- **API response caching** (Caffeine)
+- **API documentation** (Swagger/OpenAPI)
+- **Error handling** with user-friendly messages
 
-## Technologie
+## Technologies
 
 - **Java 17**
 - **Spring Boot 3.5.0**
 - **Maven**
-- **Open-Meteo API** (zewnętrzne API pogodowe)
+- **Open-Meteo API** (external weather API)
 - **Caffeine Cache**
 - **Swagger/OpenAPI 3**
 - **Docker**
 
-## Wymagania
+## Requirements
 
 - Java 17+
 - Maven 3.6+
-- Docker (opcjonalnie)
+- Docker (optional)
 
-## Jak uruchomić
+## How to run
 
-### Lokalnie
+### Locally
 
-1. **Sklonuj repozytorium:**
+1. **Clone the repository:**
    ```bash
    git clone <repository-url>
    cd weather-forecast-app
    ```
 
-2. **Zbuduj projekt:**
+2. **Build the project:**
    ```bash
    ./mvnw clean package
    ```
 
-3. **Uruchom aplikację:**
+3. **Run the application:**
    ```bash
    ./mvnw spring-boot:run
    ```
 
-4. **Aplikacja będzie dostępna pod adresem:**
+4. **Application will be available at:**
    - API: `http://localhost:8080/api`
    - Swagger UI: `http://localhost:8080/swagger-ui/index.html`
    - Health check: `http://localhost:8080/actuator/health`
 
 ### Docker
 
-1. **Zbuduj obraz:**
+1. **Build the image:**
    ```bash
    docker build -t weather-forecast-app .
    ```
 
-2. **Uruchom kontener:**
+2. **Run the container:**
    ```bash
    docker run -p 8080:8080 weather-forecast-app
    ```
 
-## Testowanie
+## Testing
 
-### Uruchomienie testów
+### Running tests
 ```bash
 ./mvnw test
 ```
 
-### Testy integracyjne
-Aplikacja zawiera testy integracyjne dla kontrolerów (`@WebMvcTest`) oraz testy jednostkowe dla serwisów.
+### Integration tests
+The application contains integration tests for controllers (`@WebMvcTest`) and unit tests for services.
 
 ## API Endpoints
 
-### 1. Prognoza 7-dniowa
+### 1. 7-day forecast
 ```http
 GET /api/forecast?lat={latitude}&lon={longitude}
 ```
 
-**Parametry:**
-- `lat` (wymagane): Szerokość geograficzna (-90 do 90)
-- `lon` (wymagane): Długość geograficzna (-180 do 180)
+**Parameters:**
+- `lat` (required): Latitude (-90 to 90)
+- `lon` (required): Longitude (-180 to 180)
 
-**Przykład:**
+**Example:**
 ```bash
 curl "http://localhost:8080/api/forecast?lat=50.0&lon=20.0"
 ```
 
-**Odpowiedź:**
+**Response:**
 ```json
 [
   {
@@ -111,30 +111,30 @@ curl "http://localhost:8080/api/forecast?lat=50.0&lon=20.0"
 ]
 ```
 
-### 2. Podsumowanie tygodnia
+### 2. Weekly summary
 ```http
 GET /api/forecast/summary?lat={latitude}&lon={longitude}
 ```
 
-**Przykład:**
+**Example:**
 ```bash
 curl "http://localhost:8080/api/forecast/summary?lat=50.0&lon=20.0"
 ```
 
-**Odpowiedź:**
+**Response:**
 ```json
 {
   "minTemperature": -0.0,
   "maxTemperature": 19.0,
   "avgPressure": 980.56,
   "avgSunshineHours": 5.9,
-  "weekComment": "z opadami"
+  "weekComment": "with precipitation"
 }
 ```
 
-## Konfiguracja
+## Configuration
 
-Główne ustawienia w `src/main/resources/application.properties`:
+Main settings in `src/main/resources/application.properties`:
 
 ```properties
 # Open-Meteo API Configuration
@@ -148,7 +148,7 @@ weather.api.read-timeout=10
 
 ## Error Handling
 
-API returns user-friendly error messages in English:
+API returns error messages in English:
 
 - **400 Bad Request**: Invalid parameters (missing lat/lon, out of range)
 - **502 Bad Gateway**: External weather API issues
@@ -165,40 +165,40 @@ API returns user-friendly error messages in English:
 }
 ```
 
-## Dane pogodowe
+## Weather Data
 
-Aplikacja pobiera dane z [Open-Meteo API](https://open-meteo.com/):
-- **Kod pogody** (0-99) - określa warunki atmosferyczne
-- **Temperatura** - min/max w °C
-- **Nasłonecznienie** - w sekundach (konwertowane na godziny)
-- **Ciśnienie** - średnie ciśnienie atmosferyczne w hPa
+The application fetches data from [Open-Meteo API](https://open-meteo.com/):
+- **Weather code** (0-99) - determines atmospheric conditions
+- **Temperature** - min/max in °C
+- **Sunshine duration** - in seconds (converted to hours)
+- **Pressure** - average atmospheric pressure in hPa
 
-## Energia słoneczna
+## Solar Energy
 
-Obliczenia energii z paneli PV:
-- **Moc paneli**: 2.5 kW
-- **Sprawność**: 20%
-- **Wzór**: `Energia = Moc × Godziny_słońca × Sprawność`
+PV panel energy calculations:
+- **Panel power**: 2.5 kW
+- **Efficiency**: 20%
+- **Formula**: `Energy = Power × Sunshine_hours × Efficiency`
 
 ## Deployment
 
 ### Render.com
-1. Połącz repozytorium z Render
-2. Wybierz "Web Service"
-3. Ustaw Build Command: `mvn clean package`
-4. Ustaw Start Command: `java -jar target/*.jar`
+1. Connect repository to Render
+2. Select "Web Service"
+3. Set Build Command: `mvn clean package`
+4. Set Start Command: `java -jar target/*.jar`
 5. Deploy!
 
-## Przykłady użycia
+## Usage Examples
 
 ### JavaScript (Frontend)
 ```javascript
-// Pobierz prognozę dla Warszawy
+// Get forecast for Warsaw
 fetch('http://localhost:8080/api/forecast?lat=52.2297&lon=21.0122')
   .then(response => response.json())
   .then(data => console.log(data));
 
-// Pobierz podsumowanie dla Krakowa
+// Get summary for Krakow
 fetch('http://localhost:8080/api/forecast/summary?lat=50.0647&lon=19.9450')
   .then(response => response.json())
   .then(data => console.log(data));
@@ -206,10 +206,9 @@ fetch('http://localhost:8080/api/forecast/summary?lat=50.0647&lon=19.9450')
 
 ### cURL
 ```bash
-# Prognoza dla Gdańska
+# Forecast for Gdansk
 curl "http://localhost:8080/api/forecast?lat=54.3520&lon=18.6466"
 
-# Podsumowanie dla Wrocławia
+# Summary for Wroclaw
 curl "http://localhost:8080/api/forecast/summary?lat=51.1079&lon=17.0385"
 ```
-
