@@ -10,7 +10,7 @@ Aplikacja do prognozowania pogody i szacowania energii słonecznej z paneli foto
 - **Walidacja współrzędnych geograficznych** (lat: -90 do 90, lon: -180 do 180)
 - **Cache'owanie** odpowiedzi API (Caffeine)
 - **Dokumentacja API** (Swagger/OpenAPI)
-- **Obsługa błędów** z przyjaznymi komunikatami
+- **Obsługa błędów** z komunikatami
 
 ## Technologie
 
@@ -212,12 +212,4 @@ curl "http://localhost:8080/api/forecast?lat=54.3520&lon=18.6466"
 # Podsumowanie dla Wrocławia
 curl "http://localhost:8080/api/forecast/summary?lat=51.1079&lon=17.0385"
 ```
-
-## Wkład w projekt
-
-1. Fork repozytorium
-2. Stwórz branch (`git checkout -b feature/nowa-funkcjonalnosc`)
-3. Commit zmiany (`git commit -m 'Dodaj nową funkcjonalność'`)
-4. Push do branch (`git push origin feature/nowa-funkcjonalnosc`)
-5. Stwórz Pull Request
 
