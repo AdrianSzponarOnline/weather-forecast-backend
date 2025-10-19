@@ -5,6 +5,7 @@ import com.example.weather.model.ForecastSummary;
 import com.example.weather.service.ForecastService;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -28,10 +29,12 @@ public class WeatherController {
     @GetMapping("/forecast")
     public ResponseEntity<List<ForecastDay>> forecast(
             @RequestParam("lat")
+            @NotNull
             @DecimalMin(value = "-90", message = "Szerokość geograficzna >= -90")
             @DecimalMax(value = "90", message = "Szerokość geograficzna <= 90")
             Double lat,
             @RequestParam("lon")
+            @NotNull
             @DecimalMin(value = "-180", message = "Długość geograficzna >= -180")
             @DecimalMax(value = "180", message = "Długość geograficzna <= 180")
             Double lon) {
@@ -41,10 +44,12 @@ public class WeatherController {
     @GetMapping("/forecast/summary")
     public ResponseEntity<ForecastSummary> summary(
             @RequestParam("lat")
+            @NotNull
             @DecimalMin(value = "-90", message = "Szerokość geograficzna >= -90")
             @DecimalMax(value = "90", message = "Szerokość geograficzna <= 90")
             Double lat,
             @RequestParam("lon")
+            @NotNull
             @DecimalMin(value = "-180", message = "Długość geograficzna >= -180")
             @DecimalMax(value = "180", message = "Długość geograficzna <= 180")
             Double lon) {

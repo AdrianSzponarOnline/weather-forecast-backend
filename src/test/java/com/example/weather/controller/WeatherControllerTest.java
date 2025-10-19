@@ -3,6 +3,7 @@ package com.example.weather.controller;
 import com.example.weather.model.ForecastDay;
 import com.example.weather.model.ForecastSummary;
 import com.example.weather.service.ForecastService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -23,6 +24,8 @@ class WeatherControllerTest {
 
     @MockBean
     private ForecastService forecastService;
+
+    @BeforeEach
 
     @Test
     @DisplayName("GET /api/forecast - poprawne parametry")

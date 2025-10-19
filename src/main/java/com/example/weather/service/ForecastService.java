@@ -37,7 +37,7 @@ public class ForecastService {
 
         List<ForecastDay> days = new ArrayList<>(7);
 
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < api.daily().time().size(); i++) {
             double sunshineHours = api.daily().sunshineDuration().get(i) / 3600.0;
             double energyKwh = PANEL_POWER_KW * sunshineHours * PANEL_EFFICENCY;
 
